@@ -5,8 +5,6 @@ import User from "../models/user.model.js";
 export const protectRoute = async (req, res, next) => {
   try {
     const token = req.cookies.jwt;
-    console.log("Token received:", token); // Debug log 1
- 
 
     if (!token) {
       return res
@@ -15,15 +13,11 @@ export const protectRoute = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded); // Debug log 2
- 
 
     if (!decoded) {
       return res.status(401).json({ message: "Unauthorized - Invalid Token" });
     }
     const user = await User.findById(decoded.id).select("-password"); // not to send password to the client
-    console.log("Found user:", user); // Debug log 3
- 
 
     if (!user) {
       return res.status(401).json({ message: "Unauthorized - User not found" });
