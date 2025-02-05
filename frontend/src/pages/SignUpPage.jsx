@@ -12,17 +12,22 @@ import {
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import AuthImagePattern from "../components/AuthImagePattern";
-
+ 
+// SignUpPage component for rendering the user registration form
 const SignUpPage = () => {
+  // State to manage the visibility of the password field
   const [showPassword, setShowPassword] = useState(false);
+  // State to store the form data for user registration
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
   });
-
+ 
+  // Accessing signup function and loading state from the authentication store
   const { signup, isSigningUp } = useAuthStore();
-
+ 
+  // Function to validate the form data before submission
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
     if (!formData.email.trim()) return toast.error("Email is required");
@@ -31,22 +36,26 @@ const SignUpPage = () => {
     if (!formData.password) return toast.error("Password is required");
     if (formData.password.length < 6)
       return toast.error("Password must be at least 6 characters");
-
+ 
     return true;
   };
+ 
+  // Function to handle form submission and validate the input data
   const handleSubmit = (e) => {
     e.preventDefault();
     const success = validateForm();
-
+ 
     if (success === true) signup(formData);
   };
+ 
+  // Rendering the signup form and the right side image pattern
   return (
     <div className="min-h-screen grid lg: grid-cols-2">
-      {/* {left side form} */}
-
+      {/* Left side form */}
+ 
       <div className="flex flex-col justify-center items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
-          {/* LOGO */}
+          {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
               <div
@@ -61,8 +70,8 @@ const SignUpPage = () => {
               </p>
             </div>
           </div>
-
-          {/* {FORM} */}
+ 
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="form-control">
               <label className="label">
@@ -157,9 +166,9 @@ const SignUpPage = () => {
           </div>
         </div>
       </div>
-
-      {/* {right side image} */}
-
+ 
+      {/* Right side image */}
+ 
       <AuthImagePattern
         title="Join our community"
         subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
@@ -167,5 +176,5 @@ const SignUpPage = () => {
     </div>
   );
 };
-
+ 
 export default SignUpPage;
