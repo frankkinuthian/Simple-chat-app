@@ -20,7 +20,7 @@ router.post("/login", login);
 router.post("/logout", logout);
 
 // update user
-router.put("/update", protectRoute, updateProfile);
+router.put("/update-profile", protectRoute, updateProfile);
 
 // check auth
 router.get("/check", protectRoute, checkAuth);
