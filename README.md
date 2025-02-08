@@ -1,5 +1,5 @@
 "# Simple-chat-app" 
-# A Dummy demo tutorial of a full stack chat App I call Ongea
+# A dummy demo tutorial of a full stack chat App I call Ongea
 
 
 Highlights:
