@@ -5,9 +5,10 @@ import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import messageRoutes from "./routes/message.route.js";
 import cors from "cors";
+import { app, server } from "./lib/socket.js";
 
 // app config
-const app = express();
+// remove app and replace with server from socket.js to listen using socket.io
 
 // env config
 dotenv.config();
@@ -29,7 +30,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 // listen
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   connectDB();
 });

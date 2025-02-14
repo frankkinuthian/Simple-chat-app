@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 import cloudinary from "../lib/cloudinary.js";
+import { io, getReceiverSocketId } from "../lib/socket.js";
 
 // This function retrieves all users except the logged-in user for the sidebar
 export const getUsersForSidebar = async (req, res) => {
@@ -64,9 +65,14 @@ export const sendMessage = async (req, res) => {
       image: imageUrl,
     });
 
-    // Implement realtime functionality with socket.io here
+    // Save the new message to the database first
+    await newMessage.save();
 
-    await newMessage.save(); // Save the new message to the database first
+    // Implement realtime functionality with socket.io here
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage); // Send the response only after saving
   } catch (error) {
@@ -74,4 +80,3 @@ export const sendMessage = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
