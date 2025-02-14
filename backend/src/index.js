@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import messageRoutes from "./routes/message.route.js";
 import cors from "cors";
 import { app, server } from "./lib/socket.js";
+import path from "path";
 
 // app config
 // remove app and replace with server from socket.js to listen using socket.io
@@ -13,6 +14,7 @@ import { app, server } from "./lib/socket.js";
 // env config
 dotenv.config();
 const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve();
 
 // middlewares
 app.use(express.json());
@@ -28,6 +30,14 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+
+// prepare for prod
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend", "dist")));
+
+  
+}
+
 
 // listen
 server.listen(PORT, () => {

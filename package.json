@@ -1,0 +1,22 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "\"# Simple-chat-app\" \r # A dummy demo tutorial of a full stack chat App I call Ongea",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm i --prefix backend && npm i --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend && npm run start --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frankkinuthian/Simple-chat-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/frankkinuthian/Simple-chat-app/issues"
+  },
+  "homepage": "https://github.com/frankkinuthian/Simple-chat-app#readme"
+}
